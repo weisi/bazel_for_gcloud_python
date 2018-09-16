@@ -1,0 +1,14 @@
+runtime: python37
+# service: service-name
+instance_class: F1
+automatic_scaling:
+  min_instances: 0
+  max_instances: 1
+handlers:
+- url: /$
+  secure: always
+  script: auto
+- url: /.*$
+  static_files: app_engine/static/file.html
+  upload: app_engine/static/file\.html
+  secure: always

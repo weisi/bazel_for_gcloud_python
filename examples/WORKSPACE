@@ -1,0 +1,14 @@
+workspace(name = "bazel_for_gcloud_python_examples")
+
+local_repository(
+    name = "bazel_for_gcloud_python",
+    path = "../",
+)
+
+# Or, use the git repository (and comment the above):
+# load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+# git_repository(
+#     name = "bazel_for_gcloud_python",
+#     remote = "https://github.com/weisi/bazel_for_gcloud_python.git",
+#     commit = "Replace this with a Git commit SHA",
+# )
