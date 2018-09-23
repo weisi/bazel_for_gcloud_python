@@ -34,7 +34,7 @@ if test -n "$_flag_requirements"
   echo $_flag_requirements >> $output_real_path/requirements.txt
 end
 
-echo "from $_flag_module_name import $_flag_function_name" > $output_real_path/main.py
+echo "from $_flag_module_name import $_flag_function_name as app" > $output_real_path/main.py
 
 pushd $output_real_path
 zip -r $temp_archive_name . > /dev/null
