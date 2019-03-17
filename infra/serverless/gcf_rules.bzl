@@ -98,6 +98,9 @@ def _py_cloud_function_impl(ctx):
     ])
     gcloud_cmdline.extend(['--env-vars-file', '$temp_dir/.env.yaml'])
 
+  if ctx.attr.region:
+    gcloud_cmdline.extend(['--region', ctx.attr.region])
+
   deploy_script_content = DEPLOY_SCRIPT_TEMPLATE.format(gcloud_cmdline=' '.join(gcloud_cmdline))
   ctx.actions.write(output = ctx.outputs.deploy, content = deploy_script_content)
 
@@ -131,6 +134,7 @@ py_cloud_function = rule(
     'requirements': attr.string_list(),
     'environments_file': attr.label(allow_files = True),
     'gcloud_project': attr.string(),
+    'region': attr.string(),
     'deploy_name': attr.string(),
     'trigger_topic': attr.string(),
     'trigger_bucket': attr.string(),
