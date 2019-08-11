@@ -80,6 +80,14 @@ def _py_cloud_function_impl(ctx):
     gcloud_cmdline.extend(['--trigger-topic', ctx.attr.trigger_topic])
   elif ctx.attr.trigger_bucket:
     gcloud_cmdline.extend(['--trigger-bucket', ctx.attr.trigger_bucket])
+  elif ctx.attr.trigger_event:
+    gcloud_cmdline.extend(['--trigger-event', ctx.attr.trigger_event])
+    if ctx.attr.trigger_resource:
+      gcloud_cmdline.extend(['--trigger-resource', ctx.attr.trigger_resource])
+    else:
+      fail(
+        'If using trigger_event, trigger_resource should also be specified',
+        'trigger_resource')
   else:
     gcloud_cmdline.extend(['--trigger-http'])
 
@@ -138,6 +146,8 @@ py_cloud_function = rule(
     'deploy_name': attr.string(),
     'trigger_topic': attr.string(),
     'trigger_bucket': attr.string(),
+    'trigger_event': attr.string(),
+    'trigger_resource': attr.string(),
     'memory': attr.int(values = MEMORY_VALUES, default = 256),
     'timeout': attr.int(),
     'debug': attr.bool(),
