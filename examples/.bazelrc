@@ -1,3 +1,3 @@
-# Use Python 3 and build to ZIP.
-run --python_top=//dev/env:python3 --build_python_zip
-build --python_top=//dev/env:python3 --build_python_zip
+# Build to ZIP.
+run --build_python_zip
+build --build_python_zip
