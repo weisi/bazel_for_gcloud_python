@@ -80,6 +80,9 @@ Pub/Sub topic trigger (Cloud Functions only)
 GCS bucket trigger (Cloud Functions only)
   if you want your function to be triggered by events from a GCS bucket
 
+General event trigger (Cloud Functions only)
+  if you want your function to be triggered by other event types
+
 Memory in MiB (Cloud Functions only)
   the default is 256 MiB but you can request more, up to 2,048 MiB
 
