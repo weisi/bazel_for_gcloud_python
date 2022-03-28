@@ -6,6 +6,7 @@ MEMORY_VALUES = [
   128, 256, 512, 1024, 2048, 4096,
 ]
 MAX_TIMEOUT = 540
+PYTHON_RUNTIME = ["python37", "python38", "python39"]
 
 DEPLOY_SCRIPT_TEMPLATE = '''#!/usr/bin/env fish
 set gcf_archive (status --current-filename | sed 's/\.fish$/\.zip/' | xargs realpath)
@@ -73,7 +74,12 @@ def _py_cloud_function_impl(ctx):
   gcloud_cmdline.extend(['beta', 'functions', 'deploy'])
 
   gcloud_cmdline.append(ctx.attr.deploy_name or ctx.attr.entry)
-  gcloud_cmdline.extend(['--runtime', 'python37'])
+
+  runtime = PYTHON_RUNTIME[0]
+  if ctx.attr.runtime and ctx.attr.runtime not in PYTHON_RUNTIME:
+    fail('Invalid runtime: {}'.format(ctx.attr.runtime), 'runtime')
+  gcloud_cmdline.extend(['--runtime', ctx.attr.runtime or runtime])
+  
   gcloud_cmdline.extend(['--entry-point', ctx.attr.entry])
 
   if ctx.attr.trigger_topic:
@@ -137,6 +143,7 @@ py_cloud_function = rule(
   attrs = {
     'src': attr.label(mandatory = True),
     'module': attr.string(),  # optional. Can be inferred.
+    'runtime': attr.string(),
     'entry': attr.string(mandatory = True),
     'requirements_file': attr.label(allow_files = True),
     'requirements': attr.string_list(),
