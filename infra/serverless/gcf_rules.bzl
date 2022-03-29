@@ -6,7 +6,7 @@ MEMORY_VALUES = [
   128, 256, 512, 1024, 2048, 4096,
 ]
 MAX_TIMEOUT = 540
-PYTHON_RUNTIME = ["python37", "python38", "python39"]
+PYTHON_RUNTIMES = ["python37", "python38", "python39"]
 
 DEPLOY_SCRIPT_TEMPLATE = '''#!/usr/bin/env fish
 set gcf_archive (status --current-filename | sed 's/\.fish$/\.zip/' | xargs realpath)
@@ -75,8 +75,8 @@ def _py_cloud_function_impl(ctx):
 
   gcloud_cmdline.append(ctx.attr.deploy_name or ctx.attr.entry)
 
-  runtime = PYTHON_RUNTIME[0]
-  if ctx.attr.runtime and ctx.attr.runtime not in PYTHON_RUNTIME:
+  runtime = PYTHON_RUNTIMES[0]
+  if ctx.attr.runtime and ctx.attr.runtime not in PYTHON_RUNTIMES:
     fail('Invalid runtime: {}'.format(ctx.attr.runtime), 'runtime')
   gcloud_cmdline.extend(['--runtime', ctx.attr.runtime or runtime])
   
