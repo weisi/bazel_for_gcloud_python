@@ -71,6 +71,9 @@ The GCP project name
 Version (App Engine only)
   the version string of the GAE deployment
 
+Python Runtime (Cloud Functions only)
+  the Python runtime to use (default: python37)
+
 Deploy name (Cloud Functions only)
   the name of the deployed function (in GCP) and also in the HTTP path
 
